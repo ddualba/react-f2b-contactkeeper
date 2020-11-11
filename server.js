@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 // Connect Database
 connectDB();
 
-// Init Middleware (BodyParser now built into express)
+// Init Middleware (Provides access to req.body)
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => res.json({ msg: 'Welcome to ContactKepper API' }));
