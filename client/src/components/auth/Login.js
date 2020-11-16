@@ -35,10 +35,14 @@ const Login = props => {
     if (email === '' || password === '') {
       setAlert('Please fill in all fields');
     } else {
-      login({
-        email,
-        password
-      });
+      try {
+        login({
+          email,
+          password
+        });
+      } catch (err) {
+        setAlert('Login Error received, check your credentials');
+      }
     }
   };
 
@@ -65,7 +69,7 @@ const Login = props => {
               value={password}
               onChange={onChange}
               required
-              autocomplete='on'
+              autoComplete='on'
             />
           </div>
         </div>
