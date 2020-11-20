@@ -3,6 +3,8 @@ import ContactContext from '../../context/contact/contactContext';
 
 // REFACTOR TO USE FORMIK
 
+// Add alert, to add email or phone
+
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
 

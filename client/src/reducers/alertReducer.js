@@ -2,7 +2,6 @@ import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
 
 const initialState = [];
 
-// destructure action, after converted to redux and working
 const alertReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_ALERT:
