@@ -1,25 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alertActions';
+
 import AuthContext from '../../context/auth/authContext';
 
-const Login = props => {
-  const alertContext = useContext(AlertContext);
+const Login = ({ setAlert, history }) => {
   const authContext = useContext(AuthContext);
-
-  const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      history.push('/');
     }
 
-    if (error === 'Invalid Credentials') {
+    if (error === 'Invalid Credentials' || error === 'Invalid User') {
       setAlert(error, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
     email: '',
@@ -33,16 +32,12 @@ const Login = props => {
   const onSubmit = e => {
     e.preventDefault();
     if (email === '' || password === '') {
-      setAlert('Please fill in all fields');
+      setAlert('Please fill in all fields', 'danger');
     } else {
-      try {
-        login({
-          email,
-          password
-        });
-      } catch (err) {
-        setAlert('Login Error received, check your credentials');
-      }
+      login({
+        email,
+        password
+      });
     }
   };
 
@@ -55,23 +50,24 @@ const Login = props => {
         <div className='form-group'>
           <label htmlFor='email'>Email Address</label>
           <input
+            id='email'
             type='email'
             name='email'
             value={email}
             onChange={onChange}
             required
           />
-          <div className='form-group'>
-            <label htmlFor='password'>Password</label>
-            <input
-              type='password'
-              name='password'
-              value={password}
-              onChange={onChange}
-              required
-              autoComplete='on'
-            />
-          </div>
+        </div>
+        <div className='form-group'>
+          <label htmlFor='password'>Password</label>
+          <input
+            id='password'
+            type='password'
+            name='password'
+            value={password}
+            onChange={onChange}
+            required
+          />
         </div>
         <input
           type='submit'
@@ -83,4 +79,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default connect(null, { setAlert })(Login);

@@ -7,12 +7,16 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import PrivateRoute from './components/routes/PrivateRoute';
-
-import ContactState from './context/contact/ContactState';
-import AuthState from './context/auth/AuthState';
-import AlertState from './context/alert/AlertState';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
+
+// context - State providers, can be removed after redux implemented
+import ContactState from './context/contact/ContactState';
+import AuthState from './context/auth/AuthState';
+
+// redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -20,9 +24,9 @@ if (localStorage.token) {
 
 const App = () => {
   return (
-    <AuthState>
-      <ContactState>
-        <AlertState>
+    <Provider store={store}>
+      <AuthState>
+        <ContactState>
           <Router>
             <Fragment>
               <Navbar />
@@ -37,9 +41,9 @@ const App = () => {
               </div>
             </Fragment>
           </Router>
-        </AlertState>
-      </ContactState>
-    </AuthState>
+        </ContactState>
+      </AuthState>
+    </Provider>
   );
 };
 
