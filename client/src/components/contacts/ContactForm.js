@@ -1,15 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import ContactContext from '../../context/contact/contactContext';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import {
+  addContact,
+  updateContact,
+  clearCurrent
+} from '../../actions/contactActions';
 
 // REFACTOR TO USE FORMIK
 
 // Add alert, to add email or phone
 
-const ContactForm = () => {
-  const contactContext = useContext(ContactContext);
-
-  const { addContact, updateContact, clearCurrent, current } = contactContext;
-
+const ContactForm = (addContact, updateContact, clearCurrent, current) => {
   useEffect(() => {
     if (current !== null) {
       setContact(current);
@@ -21,7 +22,7 @@ const ContactForm = () => {
         type: 'personal'
       });
     }
-  }, [contactContext, current]);
+  }, [current]);
 
   const [contact, setContact] = useState({
     name: '',
@@ -116,4 +117,12 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+const mapStateToProps = state => ({
+  current: state.contact.current
+});
+
+export default connect(mapStateToProps, {
+  addContact,
+  updateContact,
+  clearCurrent
+})(ContactForm);

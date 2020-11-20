@@ -1,19 +1,18 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
+import { clearContacts } from '../../actions/contactActions';
 
-// import AuthContext from '../../context/auth/authContext';
-import ContactContext from '../../context/contact/contactContext';
-
-const Navbar = ({ title, icon, logout, isAuthenticated, user }) => {
-  // const authContext = useContext(AuthContext);
-  const contactContext = useContext(ContactContext);
-
-  // const { isAuthenticated, logout, user } = authContext;
-  const { clearContacts } = contactContext;
-
+const Navbar = ({
+  title,
+  icon,
+  logout,
+  isAuthenticated,
+  user,
+  clearContacts
+}) => {
   const onLogout = () => {
     logout();
     clearContacts();
@@ -54,7 +53,8 @@ const Navbar = ({ title, icon, logout, isAuthenticated, user }) => {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string
+  icon: PropTypes.string,
+  clearContacts: PropTypes.func.isRequired
 };
 
 Navbar.defaultProps = {
@@ -67,4 +67,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, clearContacts })(Navbar);

@@ -1,11 +1,9 @@
-import React, { useContext, useRef, useEffect } from 'react';
-import ContactContext from '../../context/contact/contactContext';
+import React, { useRef, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { filterContacts, clearFilter } from '../../actions/contactActions';
 
-const ContactFilter = () => {
-  const contactContext = useContext(ContactContext);
+const ContactFilter = (filterContacts, clearFilter, filtered) => {
   const text = useRef('');
-
-  const { filterContacts, clearFilter, filtered } = contactContext;
 
   useEffect(() => {
     if (filtered === null) {
@@ -33,4 +31,10 @@ const ContactFilter = () => {
   );
 };
 
-export default ContactFilter;
+const mapStateToProps = state => ({
+  filtered: state.contact.filtered
+});
+
+export default connect(mapStateToProps, { filterContacts, clearFilter })(
+  ContactFilter
+);

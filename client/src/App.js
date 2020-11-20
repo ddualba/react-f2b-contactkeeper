@@ -7,12 +7,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import PrivateRoute from './components/routes/PrivateRoute';
-
 import './App.css';
-
-// context - State providers, can be removed after redux implemented
-import ContactState from './context/contact/ContactState';
-// import AuthState from './context/auth/AuthState';
 
 // redux
 import { Provider } from 'react-redux';
@@ -31,24 +26,20 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      {/* <AuthState> */}
-      <ContactState>
-        <Router>
-          <Fragment>
-            <Navbar />
-            <div className='container'>
-              <Alerts />
-              <Switch>
-                <PrivateRoute exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Login} />
-              </Switch>
-            </div>
-          </Fragment>
-        </Router>
-      </ContactState>
-      {/* </AuthState> */}
+      <Router>
+        <Fragment>
+          <Navbar />
+          <div className='container'>
+            <Alerts />
+            <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+              <Route exact path='/about' component={About} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+            </Switch>
+          </div>
+        </Fragment>
+      </Router>
     </Provider>
   );
 };
