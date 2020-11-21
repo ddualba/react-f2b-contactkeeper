@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   addContact,
   updateContact,
@@ -10,7 +11,12 @@ import {
 
 // Add alert, to add email or phone
 
-const ContactForm = (addContact, updateContact, clearCurrent, current) => {
+const ContactForm = ({
+  addContact,
+  updateContact,
+  clearCurrent,
+  contactState: { current }
+}) => {
   useEffect(() => {
     if (current !== null) {
       setContact(current);
@@ -117,8 +123,15 @@ const ContactForm = (addContact, updateContact, clearCurrent, current) => {
   );
 };
 
+ContactForm.propTypes = {
+  addContact: PropTypes.func.isRequired,
+  updateContact: PropTypes.func.isRequired,
+  clearCurrent: PropTypes.func.isRequired,
+  contactState: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
-  current: state.contact.current
+  contactState: state.contact
 });
 
 export default connect(mapStateToProps, {

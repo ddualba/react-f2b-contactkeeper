@@ -7,7 +7,7 @@ import {
   clearCurrent
 } from '../../actions/contactActions';
 
-const ContactItem = ({ contact }, deleteContact, setCurrent, clearCurrent) => {
+const ContactItem = ({ deleteContact, setCurrent, clearCurrent, contact }) => {
   const { _id, name, email, phone, type } = contact;
 
   const onDelete = () => {
@@ -57,6 +57,9 @@ const ContactItem = ({ contact }, deleteContact, setCurrent, clearCurrent) => {
 };
 
 ContactItem.propTypes = {
+  deleteContact: PropTypes.func.isRequired,
+  setCurrent: PropTypes.func.isRequired,
+  clearCurrent: PropTypes.func.isRequired,
   contact: PropTypes.object.isRequired
 };
 

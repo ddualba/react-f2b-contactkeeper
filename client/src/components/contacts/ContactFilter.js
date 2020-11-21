@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { filterContacts, clearFilter } from '../../actions/contactActions';
 
-const ContactFilter = (filterContacts, clearFilter, filtered) => {
+const ContactFilter = ({ filterContacts, clearFilter, filtered }) => {
   const text = useRef('');
 
   useEffect(() => {
@@ -29,6 +30,12 @@ const ContactFilter = (filterContacts, clearFilter, filtered) => {
       />
     </form>
   );
+};
+
+ContactFilter.propTypes = {
+  filterContacts: PropTypes.func.isRequired,
+  clearFilter: PropTypes.func.isRequired,
+  filtered: PropTypes.object
 };
 
 const mapStateToProps = state => ({

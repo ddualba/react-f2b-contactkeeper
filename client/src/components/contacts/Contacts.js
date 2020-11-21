@@ -2,10 +2,11 @@ import React, { Fragment, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContactItem from './ContactItem';
 import Spinner from '../../components/layout/Spinner';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getContacts } from '../../actions/contactActions';
 
-const Contacts = (contacts, filtered, getContacts, loading) => {
+const Contacts = ({ getContacts, contacts, filtered, loading }) => {
   useEffect(() => {
     getContacts();
     // eslint-disable-next-line
@@ -44,6 +45,13 @@ const Contacts = (contacts, filtered, getContacts, loading) => {
       )}
     </Fragment>
   );
+};
+
+Contacts.propTypes = {
+  getContacts: PropTypes.func.isRequired,
+  contacts: PropTypes.array,
+  filtered: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
